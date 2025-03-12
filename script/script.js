@@ -6,32 +6,41 @@ function loadCategories() {
         .then((data) => displayCategories(data.categories));
 }
 
-function displayCategories(categories){
-const categoryContainer = document.getElementById("category-container");
-for(const cat of categories){
-    const categoryDiv = document.createElement("div");
-    categoryDiv.innerHTML=`
-    <button class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
+function displayCategories(categories) {
+    const categoryContainer = document.getElementById("category-container");
+    for (const cat of categories) {
+        const categoryDiv = document.createElement("div");
+        categoryDiv.innerHTML = `
+    <button onclick="loadCategoryVideos(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
     `
-    categoryContainer.appendChild(categoryDiv);
-}
+        categoryContainer.appendChild(categoryDiv);
+    }
 
 }
 
-function loadVideos(){
-fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
-.then((res)=>res.json())
-.then((data)=>displayVideos(data.videos)
-)
+function loadVideos() {
+    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+        .then((res) => res.json())
+        .then((data) => displayVideos(data.videos)
+        )
 }
 
-const displayVideos = (videos)=> {
+const loadCategoryVideos = (id) => {
+    const url = `
+    https://openapi.programming-hero.com/api/phero-tube/category/${id}
+    `
+    fetch(url)
+    .then((res)=>res.json())
+    .then((data)=>displayVideos(data.category)
+    )
+}
+
+const displayVideos = (videos) => {
     const videosContainer = document.getElementById("videos-container");
-videos.forEach(video => {
-    console.log(video);
-    
-const videoCard = document.createElement("div");
-videoCard.innerHTML=`
+    videosContainer.innerHTML="";
+    videos.forEach(video => {
+        const videoCard = document.createElement("div");
+        videoCard.innerHTML = `
 <div class="card bg-base-100">
             <figure class="relative">
                 <img class="w-full h-[150px] object-cover" src="${video.thumbnail}" />
@@ -55,11 +64,11 @@ videoCard.innerHTML=`
             </div>
         </div>
 
-`    
-videosContainer.appendChild(videoCard)
-});
+`
+        videosContainer.appendChild(videoCard)
+    });
 
 }
 
-loadVideos()
+
 loadCategories();
