@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://kit.fontawesome.com/67226b2972.js" crossorigin="anonymous"></script>
     <style>
-        .active{
+        .active {
             background-color: #FF1F3D;
             color: white;
         }
@@ -28,14 +28,15 @@
                             <path d="m21 21-4.3-4.3"></path>
                         </g>
                     </svg>
-                    <input type="search" required placeholder="Search" />
+                    <input id="search-input" type="search" required placeholder="Search" />
                 </label></div>
             <div><button class="btn">Sort by View</button></div>
         </nav>
     </header>
     <nav id="category-container" class="flex justify-center items-center gap-5 py-5">
         <div>
-            <button id="btn-all" onclick="loadVideos()" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">All</button>
+            <button id="btn-all" onclick="loadVideos()"
+                class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">All</button>
         </div>
     </nav>
 
@@ -46,6 +47,21 @@
             <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
         </div>
     </section>
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
+    <dialog id="video_details" class="modal">
+        <div class="modal-box">
+            <div id="details-container">
+
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 
     <script src="script/script.js"></script>
 </body>
